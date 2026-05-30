@@ -1,0 +1,46 @@
+node_modules/
+dist/
+backend/.env
+__pycache__/
+*.pyc
+.env.local
+.DS_Store
+# Dependencies
+node_modules/
+venv/
+env/
+.venv/
+
+# Build outputs
+dist/
+build/
+*.pyc
+__pycache__/
+
+# Environment files 
+.env
+.env.local
+.env.production
+backend/.env
+
+# Database files 
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Deployment
+*.pid
