@@ -1,7 +1,7 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException,Depends
 from sqlalchemy import create_engine, Column, String, Integer, Boolean, DateTime
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, Session, Depends
+from sqlalchemy.orm import sessionmaker, Session
 from datetime import datetime
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -59,7 +59,7 @@ app.add_middleware(
 )
 
 # Initialize Groq client
-api_key = os.getenv("GROQ_API_KEY")
+api_key = os.getenv("GROQAPIKEY")
 client = Groq(api_key=api_key) if api_key else None
 
 # In-memory store for chat sessions
