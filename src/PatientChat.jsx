@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 
-const API = "https://sameerkhan12-meditriage-api.hf.space";
+const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 const QUICK_REPLIES = [
   "I have a fever and sore throat",
@@ -19,10 +19,7 @@ export default function PatientChat({ patientName, onBack }) {
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
- const [sessionId, setSessionId] = useState(
-  () => sessionStorage.getItem("triage_session_id") || null
-);
-const [msgCount, setMsgCount] = useState(0);
+  const [sessionId, setSessionId] = useState(null);
   const [triageDone, setTriageDone] = useState(false);
   const bottomRef = useRef(null);
 
@@ -37,30 +34,18 @@ const [msgCount, setMsgCount] = useState(0);
     setLoading(true);
 
     try {
-      const newCount = msgCount + 1;
-    setMsgCount(newCount);
-
-    const res = await fetch(`${API}/api/chat`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        session_id: sessionId,
-        message: text,
-        patient_name: patientName,
-        message_count: newCount,
-      }),
-    });
-    const data = await res.json();
-    setSessionId(data.session_id);
-    sessionStorage.setItem("triage_session_id", data.session_id);
+      const res = await fetch(`${API}/api/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ session_id: sessionId, message: text, patient_name: patientName }),
+      });
+      const data = await res.json();
+      setSessionId(data.session_id);
       setMessages(prev => [
         ...prev,
         { role: "bot", text: data.reply, triage: data.triage_result },
       ]);
-    if (data.triage_result) {
-        setTriageDone(true);
-        sessionStorage.removeItem("triage_session_id");
-      }
+      if (data.triage_result) setTriageDone(true);
     } catch {
       setMessages(prev => [
         ...prev,
