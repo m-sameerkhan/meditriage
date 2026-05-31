@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const API = "https://sameerkhan12-meditriage-api.hf.space";
+const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 function getLevelStyle(level) {
   if (level === "EMERGENCY") return { bg: "#FCEBEB", color: "#A32D2D", label: "Emergency" };
