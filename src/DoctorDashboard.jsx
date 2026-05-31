@@ -29,7 +29,7 @@ export default function DoctorDashboard({ onBack }) {
 
   async function fetchPatients() {
     try {
-      const res = await fetch(`${API}/patients`);
+      const res = await fetch(`${API}/api/patients`);
       const data = await res.json();
       setPatients(data.patients || []);
     } catch {
@@ -46,7 +46,7 @@ export default function DoctorDashboard({ onBack }) {
 
   async function markSeen(patientId) {
     try {
-      await fetch(`${API}/patients/${patientId}`, { method: "DELETE" });
+      await fetch(`${API}/api/patients/${patientId}`, { method: "DELETE" });
       setMarkedSeen(patientId);
       setSelected(null);
       setTimeout(() => { setMarkedSeen(null); fetchPatients(); }, 1200);
