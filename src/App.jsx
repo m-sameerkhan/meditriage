@@ -120,7 +120,7 @@ export default function App() {
               </div>
               <h2>I'm a Doctor</h2>
               <p>View the live patient queue, triage reports, and AI-generated clinical briefs.</p>
-              <button className="role-btn doctor-btn" onClick={goDoctor}>
+              <button className="role-btn doctor-btn" onClick={goToDoctor}>
                 Open dashboard
               </button>
             </div>
