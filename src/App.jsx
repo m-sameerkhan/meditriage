@@ -69,9 +69,7 @@ export default function App() {
           </div>
         </div>
 
-        <p className="home-footer">
-          Submission for AI Intern Case Study &nbsp;·&nbsp; Deadline June 3, 2026
-        </p>
+        
       </div>
     </div>
   );
