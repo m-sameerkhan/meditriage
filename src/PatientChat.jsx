@@ -19,7 +19,10 @@ export default function PatientChat({ patientName, onBack }) {
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [sessionId, setSessionId] = useState(null);
+ const [sessionId, setSessionId] = useState(
+  () => sessionStorage.getItem("triage_session_id") || null
+);
+const [msgCount, setMsgCount] = useState(0);
   const [triageDone, setTriageDone] = useState(false);
   const bottomRef = useRef(null);
 
@@ -34,18 +37,30 @@ export default function PatientChat({ patientName, onBack }) {
     setLoading(true);
 
     try {
-      const res = await fetch(`${API}/chat`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ session_id: sessionId, message: text, patient_name: patientName }),
-      });
-      const data = await res.json();
-      setSessionId(data.session_id);
+      const newCount = msgCount + 1;
+    setMsgCount(newCount);
+
+    const res = await fetch(`${API}/api/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        session_id: sessionId,
+        message: text,
+        patient_name: patientName,
+        message_count: newCount,
+      }),
+    });
+    const data = await res.json();
+    setSessionId(data.session_id);
+    sessionStorage.setItem("triage_session_id", data.session_id);
       setMessages(prev => [
         ...prev,
         { role: "bot", text: data.reply, triage: data.triage_result },
       ]);
-      if (data.triage_result) setTriageDone(true);
+    if (data.triage_result) {
+        setTriageDone(true);
+        sessionStorage.removeItem("triage_session_id");
+      }
     } catch {
       setMessages(prev => [
         ...prev,
