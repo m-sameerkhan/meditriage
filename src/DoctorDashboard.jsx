@@ -179,7 +179,7 @@ export default function DoctorDashboard({ onBack }) {
             const av = AVATAR_COLORS[patients.indexOf(p) % AVATAR_COLORS.length];
             return (
               <div className="detail-content">
-                {p.escalate && (
+                {p.escalate && p.level==="EMERGENCY" && (
                   <div className="escalate-banner">
                     🚨 AI flagged for immediate escalation — attending physician required now
                   </div>
