@@ -18,7 +18,7 @@ body {
   min-height: 100vh;
 }
 
-/* ── HOME ─────────────────────────────────────── */
+/* HOME */
 .home-wrap {
   min-height: 100vh;
   display: flex;
@@ -83,7 +83,7 @@ body {
 .doctor-btn:hover { background: #3C3489; }
 .home-footer { font-size: 12px; color: #aaa; }
 
-/* ── SHARED NAV ───────────────────────────────── */
+/* SHARED NAV */
 .back-btn {
   width: 32px; height: 32px; border-radius: 50%;
   border: 0.5px solid rgba(0,0,0,0.12);
@@ -132,7 +132,7 @@ body {
 }
 .refresh-btn:hover { background: #f0f0f0; }
 
-/* ── CHAT ─────────────────────────────────────── */
+/* CHAT */
 .chat-page {
   display: flex; flex-direction: column;
   min-height: 100vh;
@@ -253,7 +253,7 @@ body {
 .send-btn:hover:not(:disabled) { background: var(--green-dark); }
 .send-btn:disabled { background: #ddd; cursor: not-allowed; }
 
-/* ── DASHBOARD ────────────────────────────────── */
+/* DASHBOARD */
 .dash-page { display: flex; flex-direction: column; min-height: 100vh; background: #f4f5f7; }
 
 .stats-row {
