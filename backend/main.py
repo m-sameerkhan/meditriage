@@ -219,9 +219,14 @@ async def debug():
 
 @app.get("/api/test")
 async def test():
-    return {"status": "API is working!", "time": str(datetime.now())}
-
-
+    from datetime import timezone, timedelta
+    utc_time = datetime.now(timezone.utc)
+    pk_time = utc_time + timedelta(hours=5)
+    return {
+        "utc_time": str(utc_time),
+        "pk_time": str(pk_time),
+        "server_local": str(datetime.now()),
+    }
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat(req: ChatRequest, db: Session = Depends(get_db)):
     if not client:
